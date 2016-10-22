@@ -50,7 +50,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     private void AllowToMove()
     {
         Transform anchor = transform.FindChild("AnchorHolding");
-        selectedDocument.transform.parent = anchor;
+        selectedDocument.ChangeParent(anchor);
 
        // selectedDocument.transform.localPosition = transform.position ;
         //Vector3 fromDocToPointer = transform.position - selectedDocument.transform.position;

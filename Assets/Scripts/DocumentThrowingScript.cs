@@ -7,6 +7,8 @@ public class DocumentThrowingScript : MonoBehaviour {
     private ViveInput viveInput;
     private Transform throwingDestination;
 
+    public int InputFactor = 3;
+
     void Start()
     {
         SteamVR_LaserPointer lazer = GetComponent<SteamVR_LaserPointer>();
@@ -37,14 +39,7 @@ public class DocumentThrowingScript : MonoBehaviour {
 
     private void Throw(Document doc)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, -Vector3.up, out hit))
-        {
-            Debug.Log("Hit at " + hit.distance + " meters");
-            Rigidbody body = doc.GetComponent<Rigidbody>();
-            body.AddForce(hit.point);
-        }
-        else
-            Debug.Log("Do not hit");
+        Rigidbody body = doc.GetComponent<Rigidbody>();
+        body.AddForce(viveInput.GetVelocity() * InputFactor, ForceMode.Impulse);
     }
 }
