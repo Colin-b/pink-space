@@ -82,7 +82,10 @@ public class ShapeSelectionScript : MonoBehaviour {
         //Debug.Log("Select " +shape);
         selectedDocument = shape.GetComponent<Document>();
         if (selectedDocument != null)
+        {
             selectedDocument.Selected();
+            Move();
+        }
     }
 
     private void UnselectDocument()
@@ -94,6 +97,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     private void Move()
     {
         Debug.Log("Enter on Move");
+        selectedDocument.transform.parent = transform; 
         Vector3 fromDocToPointer = GetPointer() - selectedDocument.transform.position;
         fromDocToPointer.Normalize();
         selectedDocument.transform.Translate(fromDocToPointer);
