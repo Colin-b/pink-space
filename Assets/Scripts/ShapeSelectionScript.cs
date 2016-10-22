@@ -7,7 +7,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     public float DocumentDistanceToUserWhenDragged = 20;
     private Document selectedDocument;
     private ViveInput viveInput;
-
+    private bool isEntered = false;
     public bool IsTriggerPressed;
     public bool IsTriggerDown;
     public bool IsTriggerUp;
@@ -15,6 +15,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     void Start()
     {
         SteamVR_LaserPointer lazer= GetComponent<SteamVR_LaserPointer>();
+        lazer.PointerOut += OutObject;
         lazer.PointerIn += HitObject;
 
         viveInput = GetComponent<ViveInput>();
@@ -22,11 +23,19 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void HitObject(object sender, PointerEventArgs e)
     {
-        Debug.Log("enter");
+        Debug.Log("enter : " + e.target.gameObject );
+        isEntered = true;
         if (viveInput.IsTriggerPressed())
             SelectShape(e.target.gameObject);
     }
 
+    private void OutObject(object sender, PointerEventArgs e)
+    {
+        Debug.Log("leave :"+ e.target.gameObject);
+        isEntered = false;
+        if (viveInput.IsTriggerPressed())
+            SelectShape(e.target.gameObject);
+    }
     void Update () {
         IsTriggerPressed = viveInput.IsTriggerPressed();
         IsTriggerDown = viveInput.IsTriggerDown();
