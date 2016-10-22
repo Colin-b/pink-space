@@ -40,7 +40,6 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void SelectDocument()
     {
-        Debug.Log("Select document");
         selectedDocument.Selected();
         AllowToMove();
     }

@@ -27,7 +27,6 @@ public class DocumentThrowingScript : MonoBehaviour {
         Document doc = selectScript.GetSelectedDocument();
         if (ShouldThrow(doc))
         {
-            Debug.Log("Throw document");
             Throw(doc);
             selectScript.UnSelectDocument();
         }
