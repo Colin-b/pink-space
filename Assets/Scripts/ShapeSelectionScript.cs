@@ -1,5 +1,4 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class ShapeSelectionScript : MonoBehaviour {
 
@@ -60,9 +59,8 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void Move()
     {
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(GetPointer());
-        if (Physics.Raycast(ray, out hit))
-            selectedDocument.transform.position.Set(hit.point.x, DocumentDistanceToUserWhenDragged, hit.point.z);
+        Rigidbody rigid = selectedDocument.GetComponent<Rigidbody>();
+        Vector3 fromDocToPlayer = GetPointer() - selectedDocument.transform.position;
+        rigid.AddForce(fromDocToPlayer);
     }
 }
