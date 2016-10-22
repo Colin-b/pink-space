@@ -1,6 +1,9 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 public class ShapeSelectionScript : MonoBehaviour {
+
+    public float DocumentDistanceToUserWhenDragged = 20;
 
     private Document selectedDocument;
 
@@ -9,7 +12,14 @@ public class ShapeSelectionScript : MonoBehaviour {
             SelectPointedAtShape();
         else if (TriggerUnselection())
             UnselectDocument();
+        else if (ShouldMove())
+            Move();
 	}
+
+    private bool ShouldMove()
+    {
+        return selectedDocument != null && Input.GetMouseButtonDown(0);
+    }
 
     private bool TriggerUnselection()
     {
@@ -46,5 +56,13 @@ public class ShapeSelectionScript : MonoBehaviour {
     {
         selectedDocument.UnSelected();
         selectedDocument = null;
+    }
+
+    private void Move()
+    {
+        RaycastHit hit;
+        Ray ray = Camera.main.ScreenPointToRay(GetPointer());
+        if (Physics.Raycast(ray, out hit))
+            selectedDocument.transform.position.Set(hit.point.x, DocumentDistanceToUserWhenDragged, hit.point.z);
     }
 }
