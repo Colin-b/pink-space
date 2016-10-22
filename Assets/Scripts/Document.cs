@@ -28,7 +28,7 @@ public class Document : MonoBehaviour
     {
         initialParent = transform.parent;
         transform.parent = anchor;
-        Vector3 fromDocToPointer = anchor.position - transform.position;
-        transform.Translate(fromDocToPointer);
+        //Vector3 fromDocToPointer = anchor.position - transform.position;
+        //transform.Translate(fromDocToPointer);
     }
 }
