@@ -18,6 +18,11 @@ namespace WorkshopVR
             m_SteamVRControllerDevice = SteamVR_Controller.Input(m_ControllerIndex);
         }
 
+        public void TriggerHapticPulse(ushort duration=500)
+        {
+            m_SteamVRControllerDevice.TriggerHapticPulse(duration);
+        }
+
         #region Transform
         public Vector3 GetPosition()
         {
