@@ -13,15 +13,6 @@ public class SphereCollision : MonoBehaviour {
         collision.rigidbody.velocity = Vector3.zero;
         collision.rigidbody.angularVelocity = Vector3.zero; ;
 
-        Invoke("ResetKimematic", 2);
+    }
 
-    }
-    void ResetKimematic()
-    {
-        //collision.rigidbody.isKinematic = true;
-    }
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }
