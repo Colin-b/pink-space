@@ -59,7 +59,7 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void Move()
     {
-        Rigidbody rigid = selectedDocument.GetComponent<Rigidbody>();
+        Rigidbody rigid = selectedDocument.transform.GetComponent<Rigidbody>();
         Vector3 fromDocToPlayer = GetPointer() - selectedDocument.transform.position;
         rigid.AddForce(fromDocToPlayer);
     }
