@@ -31,11 +31,11 @@ public class ShapeSelectionScript : MonoBehaviour {
     }
 
     void Update () {
-        if (isEntered && viveInput.IsTriggerPressed())
-            SelectShape();
+        if (selectedDocument == null && isEntered && viveInput.IsTriggerPressed())
+            SelectDocument();
     }
 
-    private void SelectShape()
+    private void SelectDocument()
     {
         selectedDocument = enteredObject.GetComponent<Document>();
         if (selectedDocument != null && !selectedDocument.IsSelected)
