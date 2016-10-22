@@ -7,8 +7,6 @@ public class ShapeSelectionScript : MonoBehaviour {
     public float DocumentDistanceToUserWhenDragged = 1.1f;
     private Document selectedDocument;
     private ViveInput viveInput;
-    private bool isEntered = false;
-    private GameObject enteredObject;
 
     void Start()
     {
@@ -21,29 +19,30 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void EnterObject(object sender, PointerEventArgs e)
     {
-        isEntered = true;
-        enteredObject = e.target.gameObject;
+        if(selectedDocument == null)
+            selectedDocument = e.target.gameObject.GetComponent<Document>();
     }
 
     private void LeaveObject(object sender, PointerEventArgs e)
     {
-        isEntered = false;
+        if(selectedDocument != null)
+        {
+            Document unselectedDocument = e.target.gameObject.GetComponent<Document>();
+            if (unselectedDocument == selectedDocument && !selectedDocument.IsSelected)
+                selectedDocument = null;
+        }
     }
 
     void Update () {
-        if (selectedDocument == null && isEntered && viveInput.IsTriggerPressed())
+        if (selectedDocument != null && !selectedDocument.IsSelected && viveInput.IsTriggerPressed())
             SelectDocument();
     }
 
     private void SelectDocument()
     {
-        selectedDocument = enteredObject.GetComponent<Document>();
-        if (selectedDocument != null && !selectedDocument.IsSelected)
-        {
-            Debug.Log("Select document");
-            selectedDocument.Selected();
-            AllowToMove();
-        }
+        Debug.Log("Select document");
+        selectedDocument.Selected();
+        AllowToMove();
     }
 
     private void AllowToMove()
@@ -54,13 +53,18 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     public Document GetSelectedDocument()
     {
+        if (selectedDocument == null || !selectedDocument.IsSelected)
+            return null;
         return selectedDocument;
     }
 
     public void UnSelectDocument()
     {
-        selectedDocument.UnSelected();
-        selectedDocument = null;
+        if(selectedDocument != null)
+        {
+            selectedDocument.UnSelected();
+            selectedDocument = null;
+        }
     }
 
 }
