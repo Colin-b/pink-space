@@ -33,6 +33,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     }
 
     void Update () {
+        Debug.Log(selectedDocument);
         if (isEntered && viveInput.IsTriggerPressed())
             SelectShape();
     }
@@ -52,15 +53,9 @@ public class ShapeSelectionScript : MonoBehaviour {
         Transform anchor = transform.FindChild("AnchorHolding");
         selectedDocument.transform.parent = anchor;
 
-       // selectedDocument.transform.localPosition = transform.position ;
-        //Vector3 fromDocToPointer = transform.position - selectedDocument.transform.position;
-        //float percentageDifferenceAllowed = 0.01f; // is 1%
-
-        //if (!Approximately(transform.position - selectedDocument.transform.position, fromDocToPointer*DocumentDistanceToUserWhenDragged, percentageDifferenceAllowed))
-        //{
-        //    fromDocToPointer.Normalize();
-        //    selectedDocument.transform.Translate(fromDocToPointer);
-        //}
+        //Vector3 fromDocToPointer = anchor.position - selectedDocument.transform.position;
+        //fromDocToPointer.Normalize();
+        //selectedDocument.transform.Translate(fromDocToPointer);
 
     }
     public bool Approximately(Vector3 me, Vector3 other, float allowedDifference)
