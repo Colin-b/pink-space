@@ -6,15 +6,41 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private Document selectedDocument;
 
+    private Valve.VR.EVRButtonId triggerButton = Valve.VR.EVRButtonId.k_EButton_SteamVR_Trigger;
+    public bool triggerUp = false;
+    public bool triggerDown = false;
+    public bool triggerPressed = false;
+
+    private SteamVR_Controller.Device controller { get { return SteamVR_Controller.Input((int)trackedObj.index); } }
+    private SteamVR_TrackedObject trackedObj;
+
     void Update () {
-        Debug.Log(Input.GetMouseButtonDown(0));
-        if (TriggerSelection())
-            SelectPointedAtShape();
-        else if (TriggerUnselection())
-            UnselectDocument();
-        else if (ShouldMove())
-            Move();
-	}
+        //Debug.Log(Input.GetMouseButtonDown(0));
+        //if (TriggerSelection())
+        //    SelectPointedAtShape();
+        //else if (TriggerUnselection())
+        //    UnselectDocument();
+        //else if (ShouldMove())
+        //    Move();
+        if (controller != null)
+        {
+            triggerDown = controller.GetPressDown(triggerButton);
+            triggerUp = controller.GetPressDown(triggerButton);
+            triggerPressed = controller.GetPressDown(triggerButton);
+            if (triggerDown)
+            {
+
+            }
+            else if (triggerPressed)
+            {
+
+            }
+            else if (triggerUp)
+            {
+
+            }
+        }
+    }
 
     private bool ShouldMove()
     {
@@ -65,5 +91,9 @@ public class ShapeSelectionScript : MonoBehaviour {
         Vector3 fromDocToPointer = GetPointer() - selectedDocument.transform.position;
         fromDocToPointer.Normalize();
         selectedDocument.transform.Translate(fromDocToPointer);
+    }
+    private void Start()
+    {
+        trackedObj.GetComponent<SteamVR_TrackedObject>();
     }
 }
