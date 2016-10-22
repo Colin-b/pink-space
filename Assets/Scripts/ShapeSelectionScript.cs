@@ -40,6 +40,9 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void SelectDocument()
     {
+        Rigidbody body = selectedDocument.GetComponent<Rigidbody>();
+        body.velocity = Vector3.zero;
+        body.angularVelocity = Vector3.zero;
         selectedDocument.Selected();
         AllowToMove();
     }

@@ -9,10 +9,8 @@ public class SphereCollision : MonoBehaviour {
 
     void OnCollisionEnter(Collision collision)
     {
-
         collision.rigidbody.velocity = Vector3.zero;
-        collision.rigidbody.angularVelocity = Vector3.zero; ;
-
+        collision.rigidbody.angularVelocity = Vector3.zero;
     }
 
 }
