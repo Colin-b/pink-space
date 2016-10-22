@@ -41,7 +41,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     private void SelectShape()
     {
         selectedDocument = enteredObject.GetComponent<Document>();
-        if (selectedDocument != null)
+        if (selectedDocument != null && !selectedDocument.IsSelected)
         {
             Debug.Log("Select document");
             selectedDocument.Selected();
