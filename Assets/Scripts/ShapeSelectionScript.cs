@@ -23,8 +23,6 @@ public class ShapeSelectionScript : MonoBehaviour {
     {
         isEntered = true;
         enteredObject = e.target.gameObject;
-        if (viveInput.IsTriggerPressed())
-            SelectShape();
     }
 
     private void LeaveObject(object sender, PointerEventArgs e)
@@ -33,7 +31,6 @@ public class ShapeSelectionScript : MonoBehaviour {
     }
 
     void Update () {
-        Debug.Log(selectedDocument);
         if (isEntered && viveInput.IsTriggerPressed())
             SelectShape();
     }
@@ -53,26 +50,8 @@ public class ShapeSelectionScript : MonoBehaviour {
     {
         Transform anchor = transform.FindChild("AnchorHolding");
         selectedDocument.ChangeParent(anchor);
-
-        //Vector3 fromDocToPointer = anchor.position - selectedDocument.transform.position;
-        //fromDocToPointer.Normalize();
-        //selectedDocument.transform.Translate(fromDocToPointer);
-
     }
-    public bool Approximately(Vector3 me, Vector3 other, float allowedDifference)
-    {
-        var dx = me.x - other.x;
-        if (Mathf.Abs(dx) > allowedDifference)
-            return false;
 
-        var dy = me.y - other.y;
-        if (Mathf.Abs(dy) > allowedDifference)
-            return false;
-
-        var dz = me.z - other.z;
-
-        return Mathf.Abs(dz) >= allowedDifference;
-    }
     public Document GetSelectedDocument()
     {
         return selectedDocument;
