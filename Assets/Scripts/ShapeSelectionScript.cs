@@ -7,6 +7,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     private Document selectedDocument;
 
     void Update () {
+        Debug.Log(Input.GetMouseButtonDown(0));
         if (TriggerSelection())
             SelectPointedAtShape();
         else if (TriggerUnselection())
@@ -37,6 +38,7 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void SelectPointedAtShape()
     {
+        Debug.Log("selected");
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(GetPointer());
         if (Physics.Raycast(ray, out hit))
@@ -59,7 +61,7 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void Move()
     {
-
+        Debug.Log("Enter on Move");
         Vector3 fromDocToPointer = GetPointer() - selectedDocument.transform.position;
         fromDocToPointer.Normalize();
         selectedDocument.transform.Translate(fromDocToPointer);
