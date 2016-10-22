@@ -33,7 +33,6 @@ public class ShapeSelectionScript : MonoBehaviour {
     }
 
     void Update () {
-        Debug.Log(selectedDocument);
         if (isEntered && viveInput.IsTriggerPressed())
             SelectShape();
     }
