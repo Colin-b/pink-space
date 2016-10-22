@@ -8,6 +8,12 @@ public class Document : MonoBehaviour
 
     public bool IsSelected { get; private set; }
 
+    void Start()
+    {
+        Rigidbody rig = GetComponent<Rigidbody>();
+        rig.drag = 1;
+    }
+
     public void Selected()
     {
         IsSelected = true;
