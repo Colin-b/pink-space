@@ -43,6 +43,7 @@ public class ShapeSelectionScript : MonoBehaviour {
         selectedDocument = enteredObject.GetComponent<Document>();
         if (selectedDocument != null)
         {
+            Debug.Log("Select document");
             selectedDocument.Selected();
             AllowToMove();
         }
