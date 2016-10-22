@@ -8,6 +8,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     private Document selectedDocument;
     private ViveInput viveInput;
     private bool isEntered = false;
+    private GameObject enteredObject;
     public bool IsTriggerPressed;
     public bool IsTriggerDown;
     public bool IsTriggerUp;
@@ -25,6 +26,7 @@ public class ShapeSelectionScript : MonoBehaviour {
     {
         Debug.Log("enter : " + e.target.gameObject );
         isEntered = true;
+        enteredObject = e.target.gameObject;
         if (viveInput.IsTriggerPressed())
             SelectShape(e.target.gameObject);
     }
@@ -33,13 +35,19 @@ public class ShapeSelectionScript : MonoBehaviour {
     {
         Debug.Log("leave :"+ e.target.gameObject);
         isEntered = false;
+        enteredObject = e.target.gameObject;
         if (viveInput.IsTriggerPressed())
             SelectShape(e.target.gameObject);
     }
     void Update () {
         IsTriggerPressed = viveInput.IsTriggerPressed();
         IsTriggerDown = viveInput.IsTriggerDown();
-        if (IsTriggerDown) Debug.Log("Down");
+        if (IsTriggerPressed && isEntered)
+        {
+            if (enteredObject)
+                SelectShape(enteredObject);
+
+        }
         IsTriggerUp = viveInput.IsTriggerUp();
         if (IsTriggerUp) Debug.Log("Up");
 
