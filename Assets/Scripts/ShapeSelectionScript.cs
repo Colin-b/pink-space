@@ -9,98 +9,61 @@ public class ShapeSelectionScript : MonoBehaviour {
     private ViveInput viveInput;
     private bool isEntered = false;
     private GameObject enteredObject;
-    public bool IsTriggerPressed;
-    public bool IsTriggerDown;
-    public bool IsTriggerUp;
 
     void Start()
     {
         SteamVR_LaserPointer lazer= GetComponent<SteamVR_LaserPointer>();
-        lazer.PointerOut += OutObject;
-        lazer.PointerIn += HitObject;
+        lazer.PointerOut += LeaveObject;
+        lazer.PointerIn += EnterObject;
 
         viveInput = GetComponent<ViveInput>();
     }
 
-    private void HitObject(object sender, PointerEventArgs e)
+    private void EnterObject(object sender, PointerEventArgs e)
     {
-        Debug.Log("enter : " + e.target.gameObject );
         isEntered = true;
         enteredObject = e.target.gameObject;
         if (viveInput.IsTriggerPressed())
-            SelectShape(e.target.gameObject);
+            SelectShape();
     }
 
-    private void OutObject(object sender, PointerEventArgs e)
+    private void LeaveObject(object sender, PointerEventArgs e)
     {
-        Debug.Log("leave :"+ e.target.gameObject);
         isEntered = false;
-        enteredObject = e.target.gameObject;
-        if (viveInput.IsTriggerPressed())
-            SelectShape(e.target.gameObject);
     }
+
     void Update () {
-        IsTriggerPressed = viveInput.IsTriggerPressed();
-        IsTriggerDown = viveInput.IsTriggerDown();
-        if (IsTriggerPressed && isEntered)
-        {
-            if (enteredObject)
-                SelectShape(enteredObject);
-
-        }
-        IsTriggerUp = viveInput.IsTriggerUp();
-        if (IsTriggerUp) Debug.Log("Up");
-
-        //if (TriggerUnselection())
-        //    UnselectDocument();
-        //else if (ShouldMove())
-        //    Move();
+        if (isEntered && viveInput.IsTriggerPressed())
+            SelectShape();
     }
 
-    private bool ShouldMove()
+    private void SelectShape()
     {
-        return selectedDocument != null && viveInput.IsTriggerDown();
-    }
-
-    private bool TriggerUnselection()
-    {
-        return selectedDocument != null && viveInput.IsTriggerUp();
-    }
-
-    private bool TriggerSelection()
-    {
-        return selectedDocument == null && viveInput.IsTriggerPressed();
-    }
-
-    private Vector3 GetPointer()
-    {
-        return transform.position;
-    }
-
-    private void SelectShape(GameObject shape)
-    {
-        //Debug.Log("Select " +shape);
-        selectedDocument = shape.GetComponent<Document>();
+        selectedDocument = enteredObject.GetComponent<Document>();
         if (selectedDocument != null)
         {
             selectedDocument.Selected();
-            Move();
+            AllowToMove();
         }
     }
 
-    private void UnselectDocument()
+    private void AllowToMove()
+    {
+        selectedDocument.transform.parent = transform; 
+        Vector3 fromDocToPointer = transform.position - selectedDocument.transform.position;
+        fromDocToPointer.Normalize();
+        selectedDocument.transform.Translate(fromDocToPointer);
+    }
+
+    public Document GetSelectedDocument()
+    {
+        return selectedDocument;
+    }
+
+    public void UnSelectDocument()
     {
         selectedDocument.UnSelected();
         selectedDocument = null;
-    }
-
-    private void Move()
-    {
-        Debug.Log("Enter on Move");
-        selectedDocument.transform.parent = transform; 
-        Vector3 fromDocToPointer = GetPointer() - selectedDocument.transform.position;
-        fromDocToPointer.Normalize();
-        selectedDocument.transform.Translate(fromDocToPointer);
     }
 
 }

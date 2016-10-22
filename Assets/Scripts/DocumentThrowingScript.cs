@@ -11,11 +11,16 @@ public class DocumentThrowingScript : MonoBehaviour {
         viveInput = GetComponent<ViveInput>();
     }
 
-    //void Update () {
-    //    Document doc = GetComponent<ShapeSelectionScript>().GetSelectedDocument();
-    //    if (ShouldThrow(doc))
-    //        Throw(doc);
-    //}
+    void Update()
+    {
+        ShapeSelectionScript selectScript = GetComponent<ShapeSelectionScript>();
+        Document doc = selectScript.GetSelectedDocument();
+        if (ShouldThrow(doc))
+        {
+            Throw(doc);
+            selectScript.UnSelectDocument();
+        }
+    }
 
     private bool ShouldThrow(Document doc)
     {
@@ -24,6 +29,8 @@ public class DocumentThrowingScript : MonoBehaviour {
 
     private void Throw(Document doc)
     {
-        doc.UnSelected();
+        Rigidbody body = doc.GetComponent<Rigidbody>();
+        Vector3 throwingDirection = transform.position;
+        body.AddForce(throwingDirection);
     }
 }
