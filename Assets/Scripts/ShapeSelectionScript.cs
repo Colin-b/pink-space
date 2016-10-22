@@ -1,81 +1,68 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
+using WorkshopVR;
 
 public class ShapeSelectionScript : MonoBehaviour {
 
     public float DocumentDistanceToUserWhenDragged = 20;
-
     private Document selectedDocument;
+    private ViveInput viveInput;
 
-    public bool triggerUp = false;
-    public bool triggerDown = false;
-    public bool triggerPressed = false;
-
-    private SteamVR_Controller.Device controller;
-    private SteamVR_TrackedObject trackedObj;
+    public bool IsTriggerPressed;
+    public bool IsTriggerDown;
+    public bool IsTriggerUp;
 
     void Start()
     {
-        trackedObj = GetComponent<SteamVR_TrackedObject>();
+        SteamVR_LaserPointer lazer= GetComponent<SteamVR_LaserPointer>();
+        lazer.PointerIn += HitObject;
+
+        viveInput = GetComponent<ViveInput>();
+    }
+
+    private void HitObject(object sender, PointerEventArgs e)
+    {
+        Debug.Log("enter");
+        if (viveInput.IsTriggerPressed())
+            SelectShape(e.target.gameObject);
     }
 
     void Update () {
-        controller = SteamVR_Controller.Input((int)trackedObj.index);
-        if (TriggerSelection())
-            SelectPointedAtShape();
-        else if (TriggerUnselection())
-            UnselectDocument();
-        else if (ShouldMove())
-            Move();
+        IsTriggerPressed = viveInput.IsTriggerPressed();
+        IsTriggerDown = viveInput.IsTriggerDown();
+        if (IsTriggerDown) Debug.Log("Down");
+        IsTriggerUp = viveInput.IsTriggerUp();
+        if (IsTriggerUp) Debug.Log("Up");
 
-        //if (controller != null)
-        //{
-        //    if (triggerDown)
-        //    {
-
-        //    }
-        //    else if (triggerPressed)
-        //    {
-
-        //    }
-        //    else if (triggerUp)
-        //    {
-
-        //    }
-        //}
+        //if (TriggerUnselection())
+        //    UnselectDocument();
+        //else if (ShouldMove())
+        //    Move();
     }
 
     private bool ShouldMove()
     {
-        return selectedDocument != null && controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger);
+        return selectedDocument != null && viveInput.IsTriggerDown();
     }
 
     private bool TriggerUnselection()
     {
-        return selectedDocument != null && controller.GetPressUp(SteamVR_Controller.ButtonMask.Trigger);
+        return selectedDocument != null && viveInput.IsTriggerUp();
     }
 
     private bool TriggerSelection()
     {
-        return selectedDocument == null && controller.GetPressDown(SteamVR_Controller.ButtonMask.Trigger);
+        return selectedDocument == null && viveInput.IsTriggerPressed();
     }
 
     private Vector3 GetPointer()
     {
-        return Input.mousePosition;
-    }
-
-    private void SelectPointedAtShape()
-    {
-        Debug.Log("selected");
-        RaycastHit hit;
-        Ray ray = Camera.main.ScreenPointToRay(GetPointer());
-        if (Physics.Raycast(ray, out hit))
-            if (hit.collider != null)
-                SelectShape(hit.collider.gameObject);
+        return transform.position;
     }
 
     private void SelectShape(GameObject shape)
     {
+        //Debug.Log("Select " +shape);
         selectedDocument = shape.GetComponent<Document>();
         if (selectedDocument != null)
             selectedDocument.Selected();
