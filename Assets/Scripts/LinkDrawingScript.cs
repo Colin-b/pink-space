@@ -8,6 +8,13 @@ public class LinkDrawingScript : MonoBehaviour {
     private Document startDocument;
     private Document currentDocument;
 
+    public bool IsTouchpadPressed;
+    public bool IsTouchpadUp;
+    public bool IsTouchpadDown;
+    public bool IsTouchpadTouchPressed;
+    public bool IsTouchpadTouchDown;
+    public bool IsTouchpadTouchUp;
+
     void Start()
     {
         SteamVR_LaserPointer lazer = GetComponent<SteamVR_LaserPointer>();
@@ -31,6 +38,13 @@ public class LinkDrawingScript : MonoBehaviour {
 
     void Update()
     {
+        IsTouchpadPressed = viveInput.IsTouchpadPressed();
+        IsTouchpadUp = viveInput.IsTouchpadUp();
+        IsTouchpadDown = viveInput.IsTouchpadDown();
+        IsTouchpadTouchPressed = viveInput.IsTouchpadTouched();
+        IsTouchpadTouchDown = viveInput.IsTouchpadTouchDown();
+        IsTouchpadTouchUp = viveInput.IsTouchpadTouchUp();
+
         if (viveInput.IsTouchpadPressed())
         {
             if(startDocument == null && currentDocument != null)
