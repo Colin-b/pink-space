@@ -6,8 +6,7 @@ public class Document : MonoBehaviour
     private Color initialColor;
     private Transform initialParent;
     private Document linkedDoc;
-
-    public Shader LineShader;
+    
     private GameObject myLine;
     private LineRenderer lr;
 
@@ -31,9 +30,9 @@ public class Document : MonoBehaviour
         myLine.transform.position = start;
         myLine.AddComponent<LineRenderer>();
         lr = myLine.GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+        lr.material = new Material(Shader.Find("Default"));
         lr.SetColors(Color.green, Color.cyan);
-        lr.SetWidth(0.5f, 0.5f);
+        lr.SetWidth(0.1f, 0.1f);
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
     }
