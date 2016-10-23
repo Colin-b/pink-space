@@ -37,6 +37,11 @@ public class Document : MonoBehaviour
         lr.SetPosition(1, end);
     }
 
+    public virtual void Open()
+    {
+        // No specific action by default
+    }
+
     private void UpdateLine(Vector3 start, Vector3 end)
     {
         myLine.transform.position = start;
@@ -51,6 +56,7 @@ public class Document : MonoBehaviour
         initialColor = render.material.color;
         render.material.color = Color.blue;
     }
+
     public void SelectedRemove()
     {
         IsSelected = true;
@@ -58,6 +64,7 @@ public class Document : MonoBehaviour
         initialColor = render.material.color;
         render.material.color = Color.red;
     }
+
     public void UnSelected()
     {
         IsSelected = false;
@@ -65,12 +72,14 @@ public class Document : MonoBehaviour
         Renderer render = transform.GetComponent<Renderer>();
         render.material.color = initialColor;
     }
+
     public void UnSelectedRemove()
     {
         IsSelected = false;
         Renderer render = transform.GetComponent<Renderer>();
         //render.material.color = initialColor;
     }
+
     public void ChangeParent(Transform anchor)
     {
         initialParent = transform.parent;
