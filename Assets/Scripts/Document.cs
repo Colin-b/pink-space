@@ -1,14 +1,10 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Document : MonoBehaviour
 {
     private Color initialColor;
     private Transform initialParent;
     private Document linkedDoc;
-    
-    private GameObject myLine;
-    private LineRenderer lr;
 
     public bool IsSelected { get; private set; }
     private bool IsRemoved;
@@ -19,35 +15,9 @@ public class Document : MonoBehaviour
         rig.drag = 1;
     }
 
-    void Update()
-    {
-        if(linkedDoc != null)
-            UpdateLine(transform.position, linkedDoc.transform.position);
-    }
-
-    private void CreateLine(Vector3 start, Vector3 end)
-    {
-        myLine = new GameObject();
-        myLine.transform.position = start;
-        myLine.AddComponent<LineRenderer>();
-        lr = myLine.GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Standard"));
-        lr.SetColors(Color.green, Color.green);
-        lr.SetWidth(0.1f, 0.1f);
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
-    }
-
     public virtual void Open()
     {
         // No specific action by default
-    }
-
-    private void UpdateLine(Vector3 start, Vector3 end)
-    {
-        myLine.transform.position = start;
-        lr.SetPosition(0, start);
-        lr.SetPosition(1, end);
     }
 
     public void Selected()
@@ -92,7 +62,25 @@ public class Document : MonoBehaviour
 
     public void IsLinkedTo(Document document)
     {
-        CreateLine(transform.position, document.transform.position);
+        CreateLineTo(document);
         linkedDoc = document;
+    }
+
+    private void CreateLineTo(Document document)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = transform.position;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Standard"));
+        lr.SetColors(Color.green, Color.green);
+        lr.SetWidth(0.1f, 0.1f);
+        lr.SetPosition(0, transform.position);
+        lr.SetPosition(1, document.transform.position);
+        myLine.AddComponent<Collider>();
+        myLine.AddComponent<Link>();
+        Link link = myLine.GetComponent<Link>();
+        link.First = this;
+        link.Last = document;
     }
 }

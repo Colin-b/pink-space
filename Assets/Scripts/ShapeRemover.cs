@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using WorkshopVR;
 
 public class ShapeRemover : MonoBehaviour {
@@ -11,6 +10,7 @@ public class ShapeRemover : MonoBehaviour {
     void Start () {
         SteamVR_LaserPointer lazer = GetComponent<SteamVR_LaserPointer>();
         lazer.PointerIn += EnterObject;
+        lazer.PointerOut += ExitObject;
 
         viveInput = GetComponent<ViveInput2>();
     }
@@ -19,6 +19,12 @@ public class ShapeRemover : MonoBehaviour {
     {
         if (selectedDocument == null)
             selectedDocument = e.target.gameObject.GetComponent<Document>();
+    }
+
+    private void ExitObject(object sender, PointerEventArgs e)
+    {
+        if (selectedDocument != null && selectedDocument == e.target.gameObject.GetComponent<Document>())
+            selectedDocument = null;
     }
 
     void Update () {
