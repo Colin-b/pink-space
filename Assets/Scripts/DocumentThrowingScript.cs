@@ -9,6 +9,8 @@ public class DocumentThrowingScript : MonoBehaviour {
 
     public int InputFactor = 3;
 
+    public AudioClip ThrowingSound;
+
     void Start()
     {
         SteamVR_LaserPointer lazer = GetComponent<SteamVR_LaserPointer>();
@@ -39,6 +41,7 @@ public class DocumentThrowingScript : MonoBehaviour {
 
     private void Throw(Document doc)
     {
+        AudioSource.PlayClipAtPoint(ThrowingSound, transform.position);
         Rigidbody body = doc.GetComponent<Rigidbody>();
         body.AddForce(viveInput.GetVelocity() * InputFactor, ForceMode.Impulse);
     }
