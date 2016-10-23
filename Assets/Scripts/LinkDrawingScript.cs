@@ -26,25 +26,24 @@ public class LinkDrawingScript : MonoBehaviour {
     private void EnterObject(object sender, PointerEventArgs e)
     {
         Document document = e.target.GetComponent<Document>();
-        if(document != null)
+        if (document != null)
+        {
+            Debug.Log("Hover a document");
             currentDocument = document;
+        }
     }
 
     private void ExitObject(object sender, PointerEventArgs e)
     {
         if (currentDocument == e.target.GetComponent<Document>())
+        {
+            Debug.Log("Exit previous document");
             currentDocument = null;
+        }
     }
 
     void Update()
     {
-        IsTouchpadPressed = viveInput.IsTouchpadPressed();
-        IsTouchpadUp = viveInput.IsTouchpadUp();
-        IsTouchpadDown = viveInput.IsTouchpadDown();
-        IsTouchpadTouchPressed = viveInput.IsTouchpadTouched();
-        IsTouchpadTouchDown = viveInput.IsTouchpadTouchDown();
-        IsTouchpadTouchUp = viveInput.IsTouchpadTouchUp();
-
         if (viveInput.IsTouchpadPressed())
         {
             if(startDocument == null && currentDocument != null)
@@ -71,26 +70,30 @@ public class LinkDrawingScript : MonoBehaviour {
 
     private void LineContinue()
     {
-        // Nothing to do for now
+        Debug.Log("Continue drawing");
     }
 
     private void LineStart()
     {
+        Debug.Log("Start drawing");
         startDocument = currentDocument;
     }
 
     private void LineValid()
     {
+        Debug.Log("End drawing");
         startDocument.IsLinkedTo(currentDocument);
     }
 
     private void LineInvalid()
     {
+        Debug.Log("Invalid drawing");
         viveInput.TriggerHapticPulse(2000);
     }
 
     private void AllowNewLine()
     {
+        Debug.Log("Reset for a new line");
         startDocument = null;
     }
 }
