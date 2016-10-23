@@ -11,6 +11,7 @@ public class Document : MonoBehaviour
     private LineRenderer lr;
 
     public bool IsSelected { get; private set; }
+    private bool IsRemoved;
 
     void Start()
     {
@@ -53,7 +54,9 @@ public class Document : MonoBehaviour
     {
         IsSelected = true;
         Renderer render = transform.GetComponent<Renderer>();
-        initialColor = render.material.color;
+        if(!IsRemoved)
+            initialColor = render.material.color;
+        IsRemoved = false;
         render.material.color = Color.blue;
     }
 
@@ -61,7 +64,8 @@ public class Document : MonoBehaviour
     {
         IsSelected = true;
         Renderer render = transform.GetComponent<Renderer>();
-        initialColor = render.material.color;
+        if (!IsRemoved)
+            initialColor = render.material.color;
         render.material.color = Color.red;
     }
 
@@ -76,16 +80,14 @@ public class Document : MonoBehaviour
     public void UnSelectedRemove()
     {
         IsSelected = false;
+        IsRemoved = true;
         Renderer render = transform.GetComponent<Renderer>();
-        //render.material.color = initialColor;
     }
 
     public void ChangeParent(Transform anchor)
     {
         initialParent = transform.parent;
         transform.parent = anchor;
-        //Vector3 fromDocToPointer = anchor.position - transform.position;
-        //transform.Translate(fromDocToPointer);
     }
 
     public void IsLinkedTo(Document document)
