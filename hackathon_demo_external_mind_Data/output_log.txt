@@ -1,0 +1,57 @@
+Initialize engine version: 5.4.0f3 (a6d8d714de6f)
+GfxDevice: creating device client; threaded=1
+Direct3D:
+    Version:  Direct3D 11.0 [level 11.0]
+    Renderer: NVIDIA GeForce GTX TITAN X (ID=0x17c2)
+    Vendor:   NVIDIA
+    VRAM:     12125 MB
+Begin MonoManager ReloadAssembly
+Platform assembly: C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\OSVR.ClientKit.dll (this message is harmless)
+Loading C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\OSVR.ClientKit.dll into Unity Child Domain
+- Completed reload, in  0.036 seconds
+Platform assembly: C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\System.Core.dll (this message is harmless)
+Platform assembly: C:\Users\wivan\Desktop\pink-space\hackathon_demo_external_mind_Data\Managed\System.dll (this message is harmless)
+<RI> Initializing input.
+<RI> Input initialized.
+desktop: 1920x1200 59Hz; virtual: 1920x1200 at 0,0
+<RI> Initialized touch support.
+OpenVR initialized!
+ 
+(Filename:  Line: 312)
+
+UnloadTime: 0.722261 ms
+Connected to lighthouse:LHR-B6525640
+ 
+(Filename: C:/buildslave/unity/build/artifacts/generated/common/runtime/UnityEngineDebugBindings.gen.cpp Line: 42)
+
+Setting up 4 worker threads for Enlighten.
+  Thread -> id: 42d8 -> priority: 1 
+  Thread -> id: 4f2c -> priority: 1 
+  Thread -> id: 43d8 -> priority: 1 
+  Thread -> id: 4bec -> priority: 1 
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Material:Internal_CreateWithShader (UnityEngine.Material,UnityEngine.Shader)
+  at UnityEngine.Material..ctor (UnityEngine.Shader shader) [0x00000] in <filename unknown>:0 
+  at SteamVR_LaserPointer.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+NullReferenceException
+  at (wrapper managed-to-native) UnityEngine.Material:Internal_CreateWithShader (UnityEngine.Material,UnityEngine.Shader)
+  at UnityEngine.Material..ctor (UnityEngine.Shader shader) [0x00000] in <filename unknown>:0 
+  at SteamVR_LaserPointer.Start () [0x00000] in <filename unknown>:0 
+ 
+(Filename:  Line: -1)
+
+OpenVR Shutdown
+ 
+(Filename:  Line: 660)
+
