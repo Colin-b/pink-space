@@ -7,6 +7,10 @@ public class Document : MonoBehaviour
     private Transform initialParent;
     private Document linkedDoc;
 
+    public Shader LineShader;
+    private GameObject myLine;
+    private LineRenderer lr;
+
     public bool IsSelected { get; private set; }
 
     void Start()
@@ -18,7 +22,27 @@ public class Document : MonoBehaviour
     void Update()
     {
         if(linkedDoc != null)
-            Debug.DrawLine(transform.position, linkedDoc.transform.position, Color.green);
+            UpdateLine(transform.position, linkedDoc.transform.position);
+    }
+
+    private void CreateLine(Vector3 start, Vector3 end)
+    {
+        myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        lr = myLine.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Particles/Alpha Blended Premultiply"));
+        lr.SetColors(Color.green, Color.cyan);
+        lr.SetWidth(0.5f, 0.5f);
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+    }
+
+    private void UpdateLine(Vector3 start, Vector3 end)
+    {
+        myLine.transform.position = start;
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
     }
 
     public void Selected()
@@ -58,6 +82,7 @@ public class Document : MonoBehaviour
 
     public void IsLinkedTo(Document document)
     {
+        CreateLine(transform.position, document.transform.position);
         linkedDoc = document;
     }
 }
