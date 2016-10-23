@@ -6,6 +6,7 @@ public class ShapeRemover : MonoBehaviour {
 
     private ViveInput2 viveInput;
     private Document selectedDocument;
+    public AudioClip RemovalSound;
 
     void Start () {
         SteamVR_LaserPointer lazer = GetComponent<SteamVR_LaserPointer>();
@@ -27,6 +28,7 @@ public class ShapeRemover : MonoBehaviour {
 
     private void RemoveDocument()
     {
+        AudioSource.PlayClipAtPoint(RemovalSound, transform.position);
         Rigidbody body = selectedDocument.GetComponent<Rigidbody>();
         body.velocity = Vector3.zero;
         body.angularVelocity = Vector3.zero;
