@@ -30,7 +30,7 @@ public class Document : MonoBehaviour
         myLine.transform.position = start;
         myLine.AddComponent<LineRenderer>();
         lr = myLine.GetComponent<LineRenderer>();
-        lr.material = new Material(Shader.Find("Default"));
+        lr.material = new Material(Shader.Find("Standard"));
         lr.SetColors(Color.green, Color.green);
         lr.SetWidth(0.3f, 0.3f);
         lr.SetPosition(0, start);
