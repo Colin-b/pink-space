@@ -21,7 +21,13 @@ public class Document : MonoBehaviour
         initialColor = render.material.color;
         render.material.color = Color.blue;
     }
-
+    public void SelectedRemove()
+    {
+        IsSelected = true;
+        Renderer render = transform.GetComponent<Renderer>();
+        initialColor = render.material.color;
+        render.material.color = Color.red;
+    }
     public void UnSelected()
     {
         IsSelected = false;
@@ -29,7 +35,12 @@ public class Document : MonoBehaviour
         Renderer render = transform.GetComponent<Renderer>();
         render.material.color = initialColor;
     }
-
+    public void UnSelectedRemove()
+    {
+        IsSelected = false;
+        Renderer render = transform.GetComponent<Renderer>();
+        //render.material.color = initialColor;
+    }
     public void ChangeParent(Transform anchor)
     {
         initialParent = transform.parent;
