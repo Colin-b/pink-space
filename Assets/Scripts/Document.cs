@@ -77,7 +77,7 @@ public class Document : MonoBehaviour
         lr.SetWidth(0.1f, 0.1f);
         lr.SetPosition(0, transform.position);
         lr.SetPosition(1, document.transform.position);
-        myLine.AddComponent<Collider>();
+        myLine.AddComponent<BoxCollider>();
         myLine.AddComponent<Link>();
         Link link = myLine.GetComponent<Link>();
         link.First = this;
