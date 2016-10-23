@@ -31,8 +31,8 @@ public class Document : MonoBehaviour
         myLine.AddComponent<LineRenderer>();
         lr = myLine.GetComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Default"));
-        lr.SetColors(Color.green, Color.cyan);
-        lr.SetWidth(0.1f, 0.1f);
+        lr.SetColors(Color.green, Color.green);
+        lr.SetWidth(0.3f, 0.3f);
         lr.SetPosition(0, start);
         lr.SetPosition(1, end);
     }
