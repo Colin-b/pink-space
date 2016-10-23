@@ -40,7 +40,7 @@ public class ShapeSelectionScript : MonoBehaviour {
 
     private void SelectDocument()
     {
-        viveInput.TriggerHapticPulse(700);
+        viveInput.TriggerHapticPulse(1200);
         Rigidbody body = selectedDocument.GetComponent<Rigidbody>();
         body.velocity = Vector3.zero;
         body.angularVelocity = Vector3.zero;
