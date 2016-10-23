@@ -8,9 +8,9 @@ public class LinkDrawingScript : MonoBehaviour {
     private Document startDocument;
     private Document currentDocument;
 
-    public AudioSource StartLinkingSound;
-    public AudioSource ValidLinkSound;
-    public AudioSource InvalidLinkSound;
+    public AudioClip StartLinkingSound;
+    public AudioClip ValidLinkSound;
+    public AudioClip InvalidLinkSound;
 
     void Start()
     {
@@ -65,19 +65,19 @@ public class LinkDrawingScript : MonoBehaviour {
 
     private void LineStart()
     {
-        StartLinkingSound.Play();
+        AudioSource.PlayClipAtPoint(StartLinkingSound, transform.position);
         startDocument = currentDocument;
     }
 
     private void LineValid()
     {
-        ValidLinkSound.Play();
+        AudioSource.PlayClipAtPoint(ValidLinkSound, transform.position);
         startDocument.IsLinkedTo(currentDocument);
     }
 
     private void LineInvalid()
     {
-        InvalidLinkSound.Play();
+        AudioSource.PlayClipAtPoint(InvalidLinkSound, transform.position);
         viveInput.TriggerHapticPulse(2000);
     }
 
