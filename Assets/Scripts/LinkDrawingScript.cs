@@ -8,6 +8,10 @@ public class LinkDrawingScript : MonoBehaviour {
     private Document startDocument;
     private Document currentDocument;
 
+    public AudioSource StartLinkingSound;
+    public AudioSource ValidLinkSound;
+    public AudioSource InvalidLinkSound;
+
     void Start()
     {
         SteamVR_LaserPointer lazer = GetComponent<SteamVR_LaserPointer>();
@@ -61,16 +65,19 @@ public class LinkDrawingScript : MonoBehaviour {
 
     private void LineStart()
     {
+        StartLinkingSound.Play();
         startDocument = currentDocument;
     }
 
     private void LineValid()
     {
+        ValidLinkSound.Play();
         startDocument.IsLinkedTo(currentDocument);
     }
 
     private void LineInvalid()
     {
+        InvalidLinkSound.Play();
         viveInput.TriggerHapticPulse(2000);
     }
 
